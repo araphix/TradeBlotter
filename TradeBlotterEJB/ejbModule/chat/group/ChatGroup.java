@@ -43,6 +43,21 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
         // TODO Auto-generated constructor stub
     }
     
+    public List<GroupChat> getMessages(String userID) {
+    	TypedQuery<User> userQuery = em.createQuery("SELECT p FROM User AS p Where p.userID = :userIDParam", User.class);
+		userQuery.setParameter("userIDParam", userID);
+		// Execute the query, and get a collection of entities back.
+		List<User> userData = userQuery.getResultList();
+		
+		User LoginUser = userData.get(0);
+		String department = LoginUser.getDepartment();
+    	System.out.println("\n\n---------------------\n\n"+department+"\n\n-----------------\n\n");
+    	TypedQuery<GroupChat> query = em.createQuery("SELECT p FROM GroupChat AS p WHERE p.department ='"+department+"'", GroupChat.class);
+//    	userQuery.setParameter("userDepartment", department);
+        // Execute the query, and get a collection of entities back.
+        List<GroupChat> chats = query.getResultList();
+        return chats;
+    }
     
     public void postMessage(String userID ,String message){
     	GroupChat groupChat = new GroupChat();
@@ -54,6 +69,7 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
 		
 		User LoginUser = userData.get(0);
 		String department = LoginUser.getDepartment();
+		String userName = LoginUser.getUserName();
 		
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 		String timestamp = time.toString();
@@ -82,6 +98,7 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
     	groupChat.setTimeStamp(timestamp);
     	groupChat.setDepartment(department);
     	groupChat.setMessage(message);
+    	groupChat.setUserName(userName);
     	
 
     	em.persist(groupChat);	

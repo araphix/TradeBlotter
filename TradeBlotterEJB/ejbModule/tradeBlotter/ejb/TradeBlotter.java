@@ -69,20 +69,20 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 			        		switch(choice) {
 			        			case 0:
 			        				query = getStockQuery();
-			        				System.out.println("IN STOCK");
+			        				System.out.println("GOT STOCK QUERY");
 			        				break;
 			        				
 			        			case 1:
 			        				query = getFxQuery();
-			        				System.out.println("IN FX");
+			        				System.out.println("GOT FX QUERY");
 			        				break;
 			        			case 2:
 			        				query = getBondQuery();
-			        				System.out.println("IN BOND");
+			        				System.out.println("GOT BOND QUERY");
 			        				break;
 			        			case 3:
 			        				query = getTBillQuery();
-			        				System.out.println("IN TBILL");
+			        				System.out.println("GOT TBILL QUERY");
 			        				break;
 			        		}
 			        		
@@ -99,7 +99,7 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 				        	tradeInfoObject.setTerms(query.get(8));
 				        	tradeInfoObject.setTraderID(query.get(9));
 				        	tradeInfoObject.setFirmName(query.get(10));		
-				        	System.out.println("test test");
+				        	//System.out.println("test test");
 				        	
 
 				        	
@@ -107,7 +107,8 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 				        	try{
 				        	userTxn.begin();
 
-				        	em.persist(tradeInfoObject);	
+				        	em.persist(tradeInfoObject);
+				        	System.out.println("UPDATED DATABASE");
 
 				        	userTxn.commit();
 				        	} catch(Throwable e){
@@ -332,8 +333,8 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		//To position the cursor to the resultset starting columns.
 		for(TradeInfo t : tradeData){
 			if(counter==0){
-				System.out.println(t.getTradeID() + t.getTradeType() + t.getSubmissionDate() + t.getStatus() + t.getIsin() + t.getProduct() + t.getQuantity() + t.getPrice() + t.getQuoteVolume() + t.getTerms() + t.getTraderID() + t.getFirmName() );
-		
+				//System.out.println(t.getTradeID() + t.getTradeType() + t.getSubmissionDate() + t.getStatus() + t.getIsin() + t.getProduct() + t.getQuantity() + t.getPrice() + t.getQuoteVolume() + t.getTerms() + t.getTraderID() + t.getFirmName() );
+				
 				tradeId = t.getTradeID();
 				counter=1;
 				}
@@ -450,7 +451,7 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		
 		
 		String date = null;
-		System.out.println("IS EM NULL? "+(null==em));
+		//System.out.println("IS EM NULL? "+(null==em));
 		TypedQuery<TradeInfo> query = em.createQuery("SELECT p FROM TradeInfo AS p ORDER BY p.tradeID DESC", TradeInfo.class);
 
 		    // Execute the query, and get a collection of entities back.

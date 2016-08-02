@@ -1,5 +1,6 @@
 package tradeblotter.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -10,8 +11,12 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import chat.group.*;
+import tradeBlotter.ejb.LoginRemote;
+import tradeBlotter.jpa.GroupChat;
+import tradeBlotter.jpa.TradeInfo;
 
 @Path("/chat")
 public class ChatResource {
@@ -19,16 +24,27 @@ public class ChatResource {
 
 
 		private ChatGroupRemote bean;
+		private LoginRemote beanLogin;
 		private static boolean loginConfirmation = true;
 		public ChatResource() {
 	        try {
 	        	InitialContext context = new InitialContext();
 	            bean = (ChatGroupRemote) context.lookup("java:app/TradeBlotterEJB/ChatGroup!chat.group.ChatGroupRemote");
-	        }
+	            beanLogin = (LoginRemote) context.lookup("java:app/TradeBlotterEJB/Login!tradeBlotter.ejb.LoginRemote");
+		         }
 			catch (NamingException ex) {}
 		}
 		
-		
+		@GET
+		@Produces("application/json")
+		public List<GroupChat> displayChats(@QueryParam("traderID") String userID) {
+			if((beanLogin.getConfirmation(userID)).equals("1")){
+			return bean.getMessages(userID);
+			}
+			else{
+				return null;
+			}
+		}
 		
 		@POST
 	    @Consumes("application/x-www-form-urlencoded") 

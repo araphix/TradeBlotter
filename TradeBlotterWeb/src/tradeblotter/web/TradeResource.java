@@ -19,6 +19,7 @@ import javax.ws.rs.core.Context;
 
 import tradeBlotter.ejb.LoginRemote;
 import tradeBlotter.ejb.TradeBlotterRemote;
+import tradeBlotter.ejb.UserInfoRemote;
 import tradeBlotter.jpa.*;
 
 @Path("/user")
@@ -29,12 +30,19 @@ public class TradeResource {
 		private TradeBlotterRemote bean; 
 		private LoginRemote beanLogin;
 		private static boolean loginConfirmation = true;
+		
+		private UserInfoRemote beanUserInfo;
+
+
 		public TradeResource() {
 	        try {
 	        	InitialContext context = new InitialContext();
 	            bean = (TradeBlotterRemote) context.lookup("java:app/TradeBlotterEJB/TradeBlotter!tradeBlotter.ejb.TradeBlotterRemote");
 	        // JNDI LOOK UP
 	            beanLogin = (LoginRemote) context.lookup("java:app/TradeBlotterEJB/Login!tradeBlotter.ejb.LoginRemote");
+	            beanUserInfo = (UserInfoRemote) context.lookup("java:app/TradeBlotterEJB/UserInfo!tradeBlotter.ejb.UserInfoRemote");
+	    		
+	        
 	        }
 			catch (NamingException ex) {}
 		}
@@ -75,6 +83,18 @@ public class TradeResource {
 	    } else{
 	    	return "0";
 	    }
+		}
+		
+		
+		@GET
+		@Produces("application/json")
+	    @Path("/userInfo")
+		public List<String> getUserDetails(@QueryParam("userID")String userID) {
+
+			if (beanUserInfo == null || userID==null) 
+				return null;
+			else
+			return beanUserInfo.getUserInfo(userID);	
 		}
 
 //		@GET

@@ -1,12 +1,14 @@
 package tradeBlotter.jpa;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="groupchat")
-public class GroupChat {
+public class GroupChat implements Serializable  {
 
 	
 	private String messageID;
@@ -14,10 +16,18 @@ public class GroupChat {
 	private String timeStamp;
 	private String message;
 	private String department;
+	private String userName;
 	
 	
 	
 	
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getDepartment() {
 		return department;
 	}
