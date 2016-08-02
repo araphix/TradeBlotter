@@ -529,11 +529,11 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 	     
 		
 	    }
-    public List<TradeInfo> displayTradeInformation(){
+    public List<TradeInfo> displayTradeInformation(String userID){
     	
-    	
+    	userID = Character.toString(userID.charAt(0)) + Character.toString(userID.charAt(1)) ;
 
-        TypedQuery<TradeInfo> query = em.createQuery("SELECT p FROM TradeInfo AS p", TradeInfo.class);
+        TypedQuery<TradeInfo> query = em.createQuery("SELECT p FROM TradeInfo AS p WHERE p.traderID LIKE '%"+ userID+"%'", TradeInfo.class);
 
         // Execute the query, and get a collection of entities back.
         List<TradeInfo> products = query.getResultList();

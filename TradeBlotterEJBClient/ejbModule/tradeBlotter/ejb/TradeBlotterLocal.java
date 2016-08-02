@@ -12,6 +12,6 @@ public interface TradeBlotterLocal {
 
 
 	public List<User> addUser(String name);
-	public List<TradeInfo> displayTradeInformation();
+	public List<TradeInfo> displayTradeInformation(String userID);
 	
 }

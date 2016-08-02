@@ -56,7 +56,7 @@ public class TradeResource {
 				}
 			
 			else if((beanLogin.getConfirmation(userID)).equals("1")) {
-				return bean.displayTradeInformation();
+				return bean.displayTradeInformation(userID);
 			}
 			else{
 				TradeInfo tInfo = new TradeInfo();
