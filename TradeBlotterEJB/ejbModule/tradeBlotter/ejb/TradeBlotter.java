@@ -46,10 +46,6 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 	//Implementing the persistence of dummyData entity bean
 	
 	
-	public boolean userLogin(String userID, String password){
-		
-		return true;
-	}
 	
 	/*
 	 * 

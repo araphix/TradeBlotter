@@ -32,6 +32,18 @@ public class ChatPersonal implements ChatPersonalRemote, ChatPersonalLocal {
 	@PersistenceContext(name="TradeBlotterJPA-PU")
 	public EntityManager em; 
 	
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see chat.personal.ChatPersonalRemote#getMessages(java.lang.String, java.lang.String)
+	 * 
+	 * 
+	 * 
+	 * This functions gets the messages sent to th trader by a specific userID
+	 */
+	
+	
     public List<PersonalChat> getMessages(String userID, String receiverID) {
     	
     	System.out.println("\n\n---------------------\n\n"+userID+"\n\n-----------------\n\n");
@@ -41,6 +53,16 @@ public class ChatPersonal implements ChatPersonalRemote, ChatPersonalLocal {
         List<PersonalChat> chats = query.getResultList();
         return chats;
     }
+    
+    
+    /*
+     * (non-Javadoc)
+     * @see chat.personal.ChatPersonalRemote#postMessage(java.lang.String, java.lang.String, java.lang.String)
+     * 
+     * 
+     * THis function sends a specific message from the logged in trader to the specified other trader
+     * 
+     */
     
     public void postMessage(String userID ,String message, String receiverID){
     	PersonalChat PersonalChat = new PersonalChat();
@@ -89,6 +111,19 @@ public class ChatPersonal implements ChatPersonalRemote, ChatPersonalLocal {
     	em.persist(PersonalChat);	
     	
     }
+    
+    
+    
+    /*
+     * 
+     * (non-Javadoc)
+     * @see chat.personal.ChatPersonalRemote#getMyMessages(java.lang.String)
+     * 
+     * 
+     * This function returns the list of all the traders who have sent messages to the logged in trader
+     * 
+     * 
+     */
     
     public List<HashMap<String, String>> getMyMessages(String userID) {
     
