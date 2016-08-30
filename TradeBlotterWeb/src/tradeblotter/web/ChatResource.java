@@ -19,7 +19,7 @@ public class ChatResource {
 
 
 		private ChatGroupRemote bean;
-		private static boolean loginConfirmation = false;
+		private static boolean loginConfirmation = true;
 		public ChatResource() {
 	        try {
 	        	InitialContext context = new InitialContext();

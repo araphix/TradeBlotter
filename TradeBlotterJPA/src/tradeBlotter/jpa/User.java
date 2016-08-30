@@ -24,9 +24,17 @@ import javax.persistence.Table;
 		
 		private String department;
 		
+		private String loginConfirmation="0";
 		
 		
 		
+		
+		public String getLoginConfirmation() {
+			return loginConfirmation;
+		}
+		public void setLoginConfirmation(String loginConfirmation) {
+			this.loginConfirmation = loginConfirmation;
+		}
 		public String getPassword() {
 			return password;
 		}

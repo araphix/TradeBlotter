@@ -1,6 +1,7 @@
 package tradeblotter.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -13,6 +14,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
 import tradeBlotter.ejb.LoginRemote;
@@ -26,7 +28,7 @@ public class TradeResource {
 
 		private TradeBlotterRemote bean; 
 		private LoginRemote beanLogin;
-		private static boolean loginConfirmation = false;
+		private static boolean loginConfirmation = true;
 		public TradeResource() {
 	        try {
 	        	InitialContext context = new InitialContext();
@@ -39,17 +41,21 @@ public class TradeResource {
 		
 		@GET
 		@Produces("application/json")
-		public List<TradeInfo> displayTradeInfo() {
+		public List<TradeInfo> displayTradeInfo(@QueryParam("traderID") String userID) {
 			
 			if (bean == null) {
 				return null;
 				}
 			
-			else if(loginConfirmation == true) {
+			else if((beanLogin.getConfirmation(userID)).equals("1")) {
 				return bean.displayTradeInformation();
 			}
 			else{
-				return null;
+				TradeInfo tInfo = new TradeInfo();
+				tInfo.setStatus("User not logged in!");
+				List<TradeInfo> listTradeInfo = new ArrayList<TradeInfo>();
+				listTradeInfo.add(tInfo);
+				return listTradeInfo;
 			}
 		}
 		
@@ -63,10 +69,11 @@ public class TradeResource {
 			boolean login = beanLogin.userLogin(userID,password);
 			
 			if(login==true){
-				loginConfirmation = true;
-	        return "Correct password";
+				beanLogin.setConfirmation("1", userID);
+				//loginConfirmation = true;
+	        return "1";
 	    } else{
-	    	return "Wrong password";
+	    	return "0";
 	    }
 		}
 
