@@ -1,4 +1,4 @@
-package tradeBlotter.ejb;
+package tradeblotter.web;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import tradeBlotter.ejb.TradeBlotterRemote;
 import tradeBlotter.jpa.TradeInfo;
 
 @Path("/data")

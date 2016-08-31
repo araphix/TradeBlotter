@@ -1,6 +1,7 @@
 package tradeblotter.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -17,6 +18,7 @@ import chat.group.*;
 import tradeBlotter.ejb.LoginRemote;
 import tradeBlotter.jpa.GroupChat;
 import tradeBlotter.jpa.TradeInfo;
+import tradeBlotter.jpa.User;
 
 @Path("/chat")
 public class ChatResource {
@@ -46,10 +48,35 @@ public class ChatResource {
 			}
 		}
 		
+		
+		
+		
+		//
+		//The function below reurns the lsit of online users belonging to a particular department
+		//
+		
+		@GET
+		@Produces("application/json")
+		@Path("/onlineUsers")
+		public HashMap<String,String> displayOnlineUsers(@QueryParam("traderID") String userID){
+			
+			if((beanLogin.getConfirmation(userID)).equals("1")){
+				return bean.getOnlineUsers(userID);
+			}
+			else{
+				return null;
+			}
+			
+			
+		}
+		
+		
+		
+		
 		@POST
 	    @Consumes("application/x-www-form-urlencoded") 
 	    @Produces("text/plain")
-	    public void addPlayer(@FormParam("userID")String userID,
+	    public void sendMessage(@FormParam("userID")String userID,
 	                            @FormParam("message") String message) {
 
 			bean.postMessage(userID, message);

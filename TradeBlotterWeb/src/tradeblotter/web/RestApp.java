@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-import tradeBlotter.ejb.DummyData; 
+import tradeblotter.web.DummyData; 
 
 @ApplicationPath("/rest")
 public class RestApp extends Application {

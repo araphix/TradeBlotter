@@ -1,6 +1,7 @@
 package chat.group;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -58,6 +59,41 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
         List<GroupChat> chats = query.getResultList();
         return chats;
     }
+    
+    
+    
+    //This function gets the list of the online users within a department
+    
+    public HashMap<String,String> getOnlineUsers(String userID){
+    	TypedQuery<User> userQuery = em.createQuery("SELECT p FROM User AS p Where p.userID = :userIDParam", User.class);
+		userQuery.setParameter("userIDParam", userID);
+		// Execute the query, and get a collection of entities back.
+		List<User> userData = userQuery.getResultList();
+		
+		User LoginUser = userData.get(0);
+		String department = LoginUser.getDepartment();
+		String userName = LoginUser.getUserName();
+    	HashMap<String,String> onlineUserDetails = new HashMap<String,String>(); 
+    
+    	userQuery = em.createQuery("SELECT u FROM User AS u WHERE u.loginConfirmation = '1' AND u.department = :dept AND u.userName <> :nameUser",User.class);
+    	userQuery.setParameter("dept", department);
+    	userQuery.setParameter("nameUser", userName);
+    	
+    	userData = userQuery.getResultList();
+    	
+    	for(User u: userData){
+    		
+    		onlineUserDetails.put(u.getUserID(), u.getUserName());
+    	}
+    	
+    	return onlineUserDetails;
+    	
+    
+    
+    }
+    
+    
+    
     
     public void postMessage(String userID ,String message){
     	GroupChat groupChat = new GroupChat();
