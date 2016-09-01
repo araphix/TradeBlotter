@@ -138,7 +138,11 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 			);
 	}
 	
-	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the dummy data row for the stocks
+	 * 
+	 */
 	
 	public List<String> getStockQuery() {
 		String[] stockArray = {"NASDAQ-ACRX", "NASDAQ-ACET", "NASDAQ-AKAO", "NASDAQ-ACHN", "NASDAQ-ACIW", "NASDAQ-ACRS", "NASDAQ-ADTN", "NASDAQ-ADRO", "NASDAQ-AAAP", "NASDAQ-ADES", 
@@ -215,6 +219,12 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 			
 	}
 	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the dummy data row for the fx
+	 * 
+	 */
+	
 	public List<String> getFxQuery() {
 		
 		
@@ -254,6 +264,13 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		return rowOfData;
 
 	}
+	
+	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the dummy data row for the bonds
+	 * 
+	 */
 	
 	public List<String> getBondQuery(){
 
@@ -296,6 +313,13 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
         
 	}
 	
+	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the dummy data row for the tbills
+	 * 
+	 */
+	
 	public List<String> getTBillQuery() {
 		String[] tBillsArray = {"UK Gilt 2 Year Yield", "UK Gilt 5 Year Yield", "UK Gilt 10 Year Yield", "UK Gilt 30 Year Yield", "Germany Bund 2 Year Yield", "Germany Bund 5 Year Yield", "Germany Bund 10 Year Yield", "Germany Bund 30 Year Yield", "JGB 2 Year Yield", "JGB 5 Year Yield", "JGB 10 Year Yield", "JGB 30 Year Yield", "Australia Bond 2 Year Yield", "Australia Bond 5 Year Yield", "Australia Bond 10 Year Yield", "Australia Bond 15 Year Yield"};
 		String[] price = {"102.06", "105.50", "112.62", "153.07", "101.28", "102.61", "100.74", "157.30", "100.55", "101.33", "101.73", "98.78", "103.81", "119.15", "121.07", "131.09"};
@@ -327,6 +351,15 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		
 		return rowOfData;
 	}
+	
+	
+	/*
+	 * -------------------------------------------------
+	 * This function queries the last trade id / transaction id and increments randomly and persists it into the 
+	 * database using the dummydatagenerator function at the top of this java file
+	 * 
+	 */
+	
 	
 	public String generateTradeId() {
 
@@ -396,6 +429,13 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		return "Isin";
 	}*/
 	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the terms
+	 * 
+	 */
+	
+	
 	public static String getTerms(String orderDate) {
 
 	Calendar gc = new GregorianCalendar();
@@ -420,6 +460,15 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
         ""+concatZero(gc.get(Calendar.MINUTE))+":"+
         ""+concatZero(gc.get(Calendar.SECOND));
 	}
+	
+	
+	/*
+	 * -------------------------------------------------
+	 * This function randomly selects the trade ID from the pol of alraedy defined traders
+	 * 
+	 * 
+	 */
+	
 	
 	public static String getTraderId(int type) {
 
@@ -451,10 +500,23 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		
 	}
 	
+	/*
+	 * 
+	 * Gets the random firm from the predefined pool
+	 * 
+	 */
+	
 	public static String getFirm() {
 		String[] firms = {"Aarti Drugs","Aarti Ind","Aarvee Denim","Aarya Global","Aashee Infotech Aasheesh Sec","Aaswa Trading","Aayush Food","AB Corp","AB Nuvo","Abacus Computer","Aban Offshore","ABans Enterpris","ABB India","Abbott India","ABC Bearings","ABC Gas","ABC India","Abco Plastic","Abee Printer","ABG Shipyard","Bervin Invest","Beryl Drugs","Beryl Securitie","Besco","Best and Crompt","Best Boards","Best Eastern","Best Mulyankan","Besta Vision","Beta Napthol","Beta Securities","Beta-Kappa","Betala Global","Betalact Labs","Betex","BF Investment","BF Utilities","BFL Enterprises","Canstar (80L)","Canstar Cap","Cantabil Retail","Cantriple MF","Cantriple Plus","Canvay Chemical","Capco Ind","Capfin India","Capital First","Capital Trade","Capital Trust","Caplin Labs","Capman Financia","Capri Global","Capricorn","Caprihans","CaprolactumChem","Capsein Bio-Lab","Captain Pipes","Captain Poly","Carbon and Che","Carbon Everflow","Carborundum CARE","National Flask","National Ind","National Oxygen","National Perox","National Plasti","National Plywoo","National Stand","National Steel","National Switch","National Tech","Natraj Proteins","Natura Hue","Natural Biocon","Natural Capsule","NaturalExpo","Natural Stone","Naturite Agro","Nava Bharat Ent","Nava Bharat Ven","Naval Techno","Navcom Ind","Naveen Textiles","Navigant Corp.","Navin Fluorine","Navkar Builders","Navkar Corp","Navketan Merch","Navneet","Navsari Cotton","Navyug Elect","Nayagara Paper","Naysaa Sec","NB Footwear","NBCC (India)","NCC","NCC Blue Water","NCC Finance","NCL Industries","NCL Marbles","NCL Research","NCL Seccolor","NCML Industries","ND Metal","NDA Securities","NDTV","Nectar Life","Nedungadi Bank","Neelamalai Agro","Neelkanth Motel","Neelkanth Rock","Neelkanth Techn","Neeraj Paper","Neha Exports Lt","Neha Intl","Neha Proteins","Neil Industries","Nelcast","NELCO","Neo Corp","Neo Infracon","Neo Intex Mills Neogem India"};
 		return firms[getBetween(0,firms.length-1)];
 	}
+	
+	/*
+	 * -------------------------------------------------
+	 * This function generates the random date in sequential order
+	 * 
+	 */
+	
 	
 	public String getOrderDate() {
 		GregorianCalendar gc = new GregorianCalendar();
@@ -515,6 +577,15 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		
 	}
 	
+	
+	
+	/*
+	 * 
+	 * Helper functions
+	 * 
+	 * 
+	 */
+	
 	public static String concatZero(int n) {
 		if (n < 10)
 			return "0"+n;
@@ -530,6 +601,19 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 	
 	
 	//---------------------------------------
+	
+	
+	/*
+	 * 
+	 * 
+	 * 
+	 * (non-Javadoc)
+	 * @see tradeBlotter.ejb.TradeBlotterRemote#addUser(java.lang.String)
+	 * 
+	 * Functions not used currently
+	 * 
+	 * 
+	 */
 		
     public List<User> addUser(String name) {
 
@@ -542,6 +626,20 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 	     
 		
 	    }
+    
+    /*
+     * 
+     * 
+     * (non-Javadoc)
+     * @see tradeBlotter.ejb.TradeBlotterRemote#displayTradeInformation(java.lang.String)
+    
+    	THis function returns the trade info data for the trader's department only.
+    
+     *
+     */
+    
+    
+    
     public List<TradeInfo> displayTradeInformation(String userID){
     	
     	userID = Character.toString(userID.charAt(0)) + Character.toString(userID.charAt(1)) ;
@@ -562,77 +660,5 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
     
 }
 
-//	    @Override
-//	    public List<Product> getAllProducts() {
-//
-//	        TypedQuery<Product> query = em.createQuery("SELECT p FROM Product AS p", Product.class);
-//
-//	        // Execute the query, and get a collection of entities back.
-//	        List<Product> products = query.getResultList();
-//
-//	        for (Product product: products) {
-//	            displayProductOnServerConsole("Got product in getAllProducts()", product);
-//	        }
-//
-//	        return products;
-//	    }
 
-
-//	    public List<Product> getProductsByName(String productName) {
-//
-//	    	String sql = "SELECT p FROM Product AS p WHERE p.productName LIKE '%" + productName + "%'";
-//	        System.out.println(sql);
-//	        TypedQuery<Product> query = em.createQuery(sql, Product.class);
-//
-//	        // Execute the query, and get a collection of products back.
-//	        List<Product> products = query.getResultList();
-//
-//	        for (Product product: products) {
-//	            displayProductOnServerConsole("Got product in getProductsByName()", product);
-//	        }
-//
-//	        return products;
-//	    }
-
-//	    public List<Product> getProductsInCategory(String categoryName) {
-//
-//	        TypedQuery<Product> query = em.createQuery("SELECT p FROM Product AS p WHERE p.category.categoryName = :name", Product.class);
-//	        query.setParameter("name", categoryName);
-//
-//	        // Execute the query, and get a collection of products back.
-//	        List<Product> products = query.getResultList();
-//
-//	        for (Product product: products) {
-//	            displayProductOnServerConsole("Got product in getProductsInCategory()", product);
-//	        }
-//
-//	        return products;
-//	    }
-//
-//
-//	    @Override
-//	    public void increaseAllPrices(double delta) {
-//
-//	        // Get all products from the database.
-//	        List<Product> products = getAllProducts();
-//
-//	        for (Product product: products) {
-//	            double currentPrice = product.getUnitPrice();
-//	            double newPrice = currentPrice + delta;
-//	            product.setUnitPrice(newPrice);
-//	        }
-//
-//	        // No need to manually save in database, EM will do it automatically.
-//	    }
-//
-//
-//	    private void displayProductOnServerConsole(String message, Product product) {
-//
-//	        System.out.println(message);
-//	        if (product == null) {
-//	            System.out.print("Product is null");
-//	        } else {
-//	            System.out.println(product);
-//	        }
-//	    }
 	
