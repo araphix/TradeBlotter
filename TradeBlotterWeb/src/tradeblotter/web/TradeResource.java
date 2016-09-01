@@ -2,6 +2,7 @@ package tradeblotter.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -154,7 +155,7 @@ public class TradeResource {
 		@GET
 		@Produces("application/json")
 	    @Path("/userInfo")
-		public List<String> getUserDetails(@QueryParam("userID")String userID) {
+		public HashMap<String,String> getUserDetails(@QueryParam("userID")String userID) {
 
 			if (beanLogin == null) 
 				return null;

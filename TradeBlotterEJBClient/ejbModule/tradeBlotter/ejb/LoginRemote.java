@@ -1,5 +1,6 @@
 package tradeBlotter.ejb;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -11,7 +12,7 @@ public interface LoginRemote {
 	public void setConfirmation(String loginConfirmation, String userID);
 	public String getConfirmation(String userID);
 
-	public List<String> getUserInfo(String userID);
+	public HashMap<String,String> getUserInfo(String userID);
 	public void logOutUser(String userID);
 
 }

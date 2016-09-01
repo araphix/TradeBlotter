@@ -45,6 +45,18 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
         // TODO Auto-generated constructor stub
     }
     
+    
+    
+    /*
+     * 
+     * 
+     *This function gets all the group messages for the trader's department
+     *
+     *
+     */
+    
+    
+    
     public List<GroupChat> getMessages(String userID) {
     	TypedQuery<User> userQuery = em.createQuery("SELECT p FROM User AS p Where p.userID = :userIDParam", User.class);
 		userQuery.setParameter("userIDParam", userID);
@@ -100,7 +112,13 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
     }
     
     
-    
+    /*This function let's the logged in user to post the message to the group hat for the department
+     * 
+     * 
+     * 
+     * (non-Javadoc)
+     * @see chat.group.ChatGroupRemote#postMessage(java.lang.String, java.lang.String)
+     */
     
     public void postMessage(String userID ,String message){
     	GroupChat groupChat = new GroupChat();

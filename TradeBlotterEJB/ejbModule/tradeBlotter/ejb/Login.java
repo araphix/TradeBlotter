@@ -1,6 +1,7 @@
 package tradeBlotter.ejb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -91,9 +92,10 @@ public class Login implements LoginRemote, LoginLocal {
 	 * 
 	 */
 
-	public List<String> getUserInfo(String userID) {
+	public HashMap<String,String> getUserInfo(String userID) {
 
-		List<String> userInfo = new ArrayList<>();
+//		List<String> userInfo = new ArrayList<>();
+		HashMap<String,String> infoHash = new HashMap<String,String>();
 		TypedQuery<User> query = em.createQuery("SELECT p FROM User AS p WHERE p.userID='" + userID + "'", User.class);
 		System.out.println(query);
 		// Execute the query, and get user details back.
@@ -102,9 +104,16 @@ public class Login implements LoginRemote, LoginLocal {
 		User userDetail = userData.get(0);
 		String userName = userDetail.getUserName();
 		String department = userDetail.getDepartment();
-		userInfo.add(userName);
-		userInfo.add(department);
-		return userInfo;
+		
+		infoHash.put("userName", userName);
+		infoHash.put("userID", userID);
+		infoHash.put("department",department);
+		
+		
+		
+//		userInfo.add(userName);
+//		userInfo.add(department);
+		return infoHash;
 
 		// return the user data for displaying
 	}
