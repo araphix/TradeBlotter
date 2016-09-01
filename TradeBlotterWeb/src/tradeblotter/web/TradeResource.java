@@ -47,6 +47,13 @@ public class TradeResource {
 			catch (NamingException ex) {}
 		}
 		
+		
+		//
+		//The function below displays the trade information only if the trader is logged in
+		// path is /rest/user?traderID=
+		//
+		
+		
 		@GET
 		@Produces("application/json")
 		public List<TradeInfo> displayTradeInfo(@QueryParam("traderID") String userID) {
@@ -67,11 +74,59 @@ public class TradeResource {
 			}
 		}
 		
+		
+		/*
+		 * 
+		 * ----------------------------------------
+		 * The function below logs out the logged in trader
+		 * THe post method takes traerID as the form parameter.
+		 * Returns 1 for a successful logout.
+		 * Returns 0 for unsuccessful logout.
+		 * 
+		 * 
+		 */
+		
+		@POST
+		@Produces("application/json")
+		@Path("/logout")
+		public String logout(@FormParam("traderID") String userID) {
+			
+			if (bean == null) {
+				return null;
+				}
+			
+			else if((beanLogin.getConfirmation(userID)).equals("1")) {
+				beanLogin.setConfirmation("0", userID);
+				return "1";
+				
+				
+				
+			}
+			else{
+				
+				return "0";
+			}
+		}
+		
+		
+		/*
+		 * 
+		 * ------------------------------------------
+		 * The function below makes changes in the database for the logged in trader. Just to keep track
+		 * of the logged in traders.
+		 * 
+		 * Form parameters are userID and password
+		 * 
+		 * 
+		 */
+		
+		
+		
 		@POST
 	    @Consumes("application/x-www-form-urlencoded") 
 	    @Produces("text/plain")
 		@Path("/login")
-	    public String addPlayer(@FormParam("userID")String userID,
+	    public String login(@FormParam("userID")String userID,
 	                            @FormParam("password") String password) {
 
 			boolean login = beanLogin.userLogin(userID,password);
@@ -86,27 +141,27 @@ public class TradeResource {
 		}
 		
 		
+		/*
+		 * ------------------------------------------------------------------------ 
+		 * 
+		 * 		The function below get the trader information for the logged in trader.
+		 * 		Trader's name and trader's ID
+		 * 
+		 * 			/rest/user/userInfo?userID=
+		 * 
+		 */
+		
 		@GET
 		@Produces("application/json")
 	    @Path("/userInfo")
 		public List<String> getUserDetails(@QueryParam("userID")String userID) {
 
-			if (beanUserInfo == null || userID==null) 
+			if (beanLogin == null) 
 				return null;
-			else
-			return beanUserInfo.getUserInfo(userID);	
+			else {
+				return beanLogin.getUserInfo(userID);
+			}				
 		}
 
-//		@GET
-//		@Produces("application/json")
-//	    @Path("/{categoryName}")
-//		public List<Product> getProductsInCategory(@PathParam("categoryName")String categoryName) {
-//
-//			if (bean == null) 
-//				return null;
-//			
-//			return bean.getProductsInCategory(categoryName);	
-//		}
-//	}
-////
+
 }

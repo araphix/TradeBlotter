@@ -1,5 +1,6 @@
 package tradeBlotter.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -59,6 +60,37 @@ public class Login implements LoginRemote, LoginLocal {
 
 	}
 
+	public List<String> getUserInfo(String userID) {
+			
+			List<String> userInfo = new ArrayList<>();
+			TypedQuery<User> query = em.createQuery("SELECT p FROM User AS p WHERE p.userID='"+userID+"'", User.class);
+			System.out.println(query);
+			// Execute the query, and get user details back.
+			List<User> userData = query.getResultList();
+			
+			User userDetail = userData.get(0);
+			String userName = userDetail.getUserName();
+			String department = userDetail.getDepartment();
+			userInfo.add(userName);
+			userInfo.add(department);
+			return userInfo;
+			
+			//return the user data for displaying 
+			}
+	
+	
+	
+	public void logOutUser(String userID){
+		
+		Query query = em.createQuery("UPDATE User AS u SET u.loginConfirmation = :userConf where u.userID= :userLog");
+		query.setParameter("userLog", userID);
+		query.setParameter("userConf", "0");
+		query.executeUpdate();
+		
+		
+	}
+	
+	
 	public boolean userLogin(String userID, String password) {
 
 		boolean loginBool;

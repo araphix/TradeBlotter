@@ -51,6 +51,18 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 		return true;
 	}
 	
+	/*
+	 * 
+	 * 
+	 * 
+	 * (non-Javadoc)
+	 * @see tradeBlotter.ejb.TradeBlotterRemote#dummyDataGenerator()
+	 * 
+	 * This function is responsible for persisting the dummy data generator with th help of various functions
+	 * into the tradedata table in the 'mydatabase';
+	 * 
+	 */
+	
 	public void dummyDataGenerator(){
 		
 			new java.util.Timer().schedule( 
@@ -102,6 +114,7 @@ public class TradeBlotter implements TradeBlotterRemote, TradeBlotterLocal {
 				        	//System.out.println("test test");
 				        	
 
+				        	// Persisting the data using the rollback transactions
 				        	
 				        	UserTransaction userTxn = sessionContext.getUserTransaction();
 				        	try{
