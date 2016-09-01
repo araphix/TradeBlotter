@@ -7,33 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="groupchat")
-public class GroupChat implements Serializable  {
+@Table(name="personalchat")
+public class PersonalChat implements Serializable  {
 
-	
+	private static final long serialVersionUID = 1L;
 	private int messageID;
 	private String userID;
 	private String timeStamp;
 	private String message;
-	private String department;
-	private String userName;
-	
-	
-	
-	
-	
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getDepartment() {
-		return department;
-	}
-	public void setDepartment(String department) {
-		this.department = department;
-	}
+	private String receiverID;
+	private String sender;
+	private String receiver;
 	
 	@Id
 	public int getMessageID() {
@@ -60,9 +44,26 @@ public class GroupChat implements Serializable  {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-	
-	
-	
+	public String getReceiverID() {
+		return receiverID;
+	}
+	public void setReceiverID(String receiverID) {
+		this.receiverID = receiverID;
+	}
+	public String getSender() {
+		return sender;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+		
 }

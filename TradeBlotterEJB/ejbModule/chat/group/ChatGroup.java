@@ -1,6 +1,7 @@
 package chat.group;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
     
     //This function gets the list of the online users within a department
     
-    public HashMap<String,String> getOnlineUsers(String userID){
+    public List<HashMap<String,String>> getOnlineUsers(String userID){
     	TypedQuery<User> userQuery = em.createQuery("SELECT p FROM User AS p Where p.userID = :userIDParam", User.class);
 		userQuery.setParameter("userIDParam", userID);
 		// Execute the query, and get a collection of entities back.
@@ -74,7 +75,7 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
 		String department = LoginUser.getDepartment();
 		String userName = LoginUser.getUserName();
     	HashMap<String,String> onlineUserDetails = new HashMap<String,String>(); 
-    
+    	List<HashMap<String,String>> listHash = new ArrayList<HashMap<String,String>>();
     	userQuery = em.createQuery("SELECT u FROM User AS u WHERE u.loginConfirmation = '1' AND u.department = :dept AND u.userName <> :nameUser",User.class);
     	userQuery.setParameter("dept", department);
     	userQuery.setParameter("nameUser", userName);
@@ -83,10 +84,16 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
     	
     	for(User u: userData){
     		
-    		onlineUserDetails.put(u.getUserID(), u.getUserName());
+    		onlineUserDetails.put("userID", u.getUserID());
+    		onlineUserDetails.put("userName", u.getUserName());
+    		onlineUserDetails.put("department", u.getDepartment());
+    		
+    		listHash.add(onlineUserDetails);
+
+    		 onlineUserDetails = new HashMap<String,String>(); 
     	}
     	
-    	return onlineUserDetails;
+    	return listHash;
     	
     
     
@@ -115,7 +122,7 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
 	    // Execute the query, and get a collection of entities back.
 	    List<GroupChat> messageData = messageIdQuery.getResultList();
 	    int counter = 0;
-	    String prevMessageId = null;
+	    int prevMessageId = 0;
 		
 		//To position the cursor to the resultset starting columns.
 		for(GroupChat t : messageData){
@@ -127,9 +134,8 @@ public class ChatGroup implements ChatGroupRemote, ChatGroupLocal {
 			}
 		}
 	    
-		String messageId = "" + (Integer.parseInt(prevMessageId)+1);
 	    
-		groupChat.setMessageID(messageId);
+		groupChat.setMessageID(prevMessageId+1);
 		groupChat.setUserID(userID);
     	groupChat.setTimeStamp(timestamp);
     	groupChat.setDepartment(department);

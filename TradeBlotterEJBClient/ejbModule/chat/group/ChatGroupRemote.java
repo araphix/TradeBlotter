@@ -14,6 +14,6 @@ public interface ChatGroupRemote {
 	
 	public void postMessage(String userID, String message);
 	public List<GroupChat> getMessages(String userID);
-	public HashMap<String,String> getOnlineUsers(String userID);
+	public List<HashMap<String,String>> getOnlineUsers(String userID);
 	
 }
